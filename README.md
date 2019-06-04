@@ -29,7 +29,7 @@ The data was split patient-wise to training/validation/test set. Each set includ
 ### Skull stripping:
 Removal of the skull and other non-brain tissues from the denoised MRA images by applying the brain mask to the images.
 
-<img src="docs/imgs/brain_extraction.png" alt="skull striping" width="600" />
+<img src="Unet/docs/imgs/brain_extraction.png" alt="skull striping" width="600" />
 
 The denoised MRA scans (A) and the ground-truth labels (B) are overlaid with the brain mask (C and
 D) resulting in masked brain images (E) and ground-truth labels (F).
@@ -38,14 +38,14 @@ D) resulting in masked brain images (E) and ground-truth labels (F).
 The training data (training patches) was augmented on-the-fly with a [ImageDataGenerator](https://keras.io/preprocessing/image/) from Keras library.
 The augmentation contained random flipping over vertical axis, random rotation in range -30° to 30° and random shear in range -20° to 20°. The augmentation doubled the number of training patches.
 
-<img src="docs/imgs/real_time_augmentation.png" alt="augmented patches" width="600" />
+<img src="Unet/docs/imgs/real_time_augmentation.png" alt="augmented patches" width="600" />
 
 The figure shows training patches augmented by random rotations in range from -30° to 30°, random shears in range from -20° to 20° and random vertical flips. The upper part of the figure shows the original patches (A) of brain-images (i) and corresponding ground-truth labels (ii). The lower part of the figure shows the augmented patches (B) of brain images (i) and the corresponding labels (ii).
 
 ### Patch extraction:
 We extracted 1000 quadratic patches per patient: 500 random patches with a vessel in the center and 500 random patches without a vessel in the center. 4 different sizes (16, 32, 64, 96) of patches were extracted. The model was trained using 4 different patch sizes (16 × 16, 32 × 32, 64 × 64, 96 × 96 voxels) and was later tested for best results against the validation set as part of the optimization process.
 
-<img src="docs/imgs/extracted_patches.png" alt="extracted patches" width="600" />
+<img src="Unet/docs/imgs/extracted_patches.png" alt="extracted patches" width="600" />
 
 The figure shows five pairs of randomly extracted patches from a brain image (A) of a representative patient and ground-truth label (B) in 4 different patch sizes: 16 x 16, 32 x 32, 64 x 64 and 96 x 96 voxels. Each row corresponds to one area with different patch sizes.
 
@@ -62,12 +62,12 @@ The final layer is a 1x1 convolution for mapping the feature channels from previ
 Two architectures were trained:
 1. **Full unet** with full number of feature channels on 5 layers [64, 128, 256, 512, 1024] respectively. This architecture has 31 377 793 trainable parameters (weights).
 
-<img src="docs/imgs/full_u-net.png" alt="full unet architecture" width="800" />
+<img src="Unet/docs/imgs/full_u-net.png" alt="full unet architecture" width="800" />
 <br />
 
 2. **Half unet** with half number of feature channels on 5 layers [32, 64, 128, 256, 512] respectively. This architecture has 7 846 081 trainable parameters (weights).
 
-<img src="docs/imgs/half_u-net.png" alt="half unet architecture" width="800" />
+<img src="Unet/docs/imgs/half_u-net.png" alt="half unet architecture" width="800" />
 
 ### Model training
 Optimizer: Adam <br />
@@ -80,7 +80,7 @@ The smoothing factor ensures that the measure value is equal to 1.0 if the predi
 ### Performance assessment
 The evaluation of the model on the validation and test sets done on the fully constructed brain level. The full brain for each patient is divided in patches one by one; for each patch the segmentation is predicted; and the predictions are stacked again together to return the final full volume. The performance measures for each set (validation / test) was calculated as average over all patients in the particular set.
 
-<img src="docs/imgs/vasculature_reconstruction.png" alt="vasculature reconstruction" width="600" />
+<img src="Unet/docs/imgs/vasculature_reconstruction.png" alt="vasculature reconstruction" width="600" />
 
 The model performance was assessed based on three different measures: The Dice coefficient, 95HD and the AVD. The measures were calculated using the EvaluateSegmentation tool provided by [Taha and Hanbury (2015), Taha (2018)](https://bmcmedimaging.biomedcentral.com/articles/10.1186/s12880-015-0068-x). 
 
@@ -94,11 +94,11 @@ The model performance was assessed based on three different measures: The Dice c
 
 Exemplary segmentation with the full Unet model selected on DICE:
 
-<img src="docs/imgs/full_Unet_segmentation.png" alt="segmentation with full unet" width="500" />
+<img src="Unet/docs/imgs/full_Unet_segmentation.png" alt="segmentation with full unet" width="500" />
 
 Enlarged error map from previous figure:
 
-<img src="docs/imgs/error_map_full_Unet.png" alt="error map of segmentation with full unet" width="500" />
+<img src="Unet/docs/imgs/error_map_full_Unet.png" alt="error map of segmentation with full unet" width="500" />
 
 2. **Unet - half feature channels**: [32, 64, 128, 256, 512]:
     * patch size 96, epochs 10, batch size 64, lr 1e-4, dr 0.1: DICE val-set 0.881, test-set 0.892
@@ -107,11 +107,11 @@ Enlarged error map from previous figure:
 
 Exemplary segmentation with the half Unet model selected on DICE:
 
-<img src="docs/imgs/half_Unet_segmentation.png" alt="segmentation with half unet" width="500" />
+<img src="Unet/docs/imgs/half_Unet_segmentation.png" alt="segmentation with half unet" width="500" />
 
 Enlarged error map from previous figure:
 
-<img src="docs/imgs/error_map_half_Unet.png" alt="error map of segmentation with half unet" width="500" />
+<img src="Unet/docs/imgs/error_map_half_Unet.png" alt="error map of segmentation with half unet" width="500" />
 
 ### Threshold Analysis
 The threshold analysis was done to ensure that the applied threshold on the classifier output (to shift to binary prediction) is optimized. 
