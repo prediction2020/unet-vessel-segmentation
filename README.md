@@ -124,4 +124,4 @@ Based on that threshold new performance assessment was done on the test-set, but
 Manual to this framework can be found [here](manual.md).
 
 ## License
-This project is licensed under the MIT license.
+This project is licensed under the [MIT license](LICENSE.md).
