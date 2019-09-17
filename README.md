@@ -9,6 +9,15 @@ The neural network structure is derived from the *U-Net* architecture presented 
 
 https://www.frontiersin.org/articles/10.3389/fnins.2019.00097/full
 
+If you use the code or the models, please cite our work as:
+
+Livne, Michelle et al. „A U-Net Deep Learning Framework for High Performance Vessel Segmentation in Patients With Cerebrovascular Disease“. Frontiers in Neuroscience, Bd. 13, Februar 2019, S. 97. DOI.org (Crossref), doi:10.3389/fnins.2019.00097.
+
+## Models
+
+The models can be downloaded via this link:
+https://zenodo.org/record/3433818#.XYENBJMza1s
+
 ## Data
 We used imaging data from patients from the PEGASUS study that enrolled patients with steno-occlusive cerebrovascular disease. At the current time-point the imaging data cannot be made publicly accessible due to data protection.
 
